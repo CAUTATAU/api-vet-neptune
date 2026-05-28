@@ -1,13 +1,17 @@
+import os
 import boto3
 from botocore.auth import SigV4Auth
 from botocore.awsrequest import AWSRequest
 from gremlin_python.driver.driver_remote_connection import DriverRemoteConnection
 from gremlin_python.process.anonymous_traversal import traversal
+from dotenv import load_dotenv
 
+
+load_dotenv()
 # ATENÇÃO: Substitua pelo endpoint real e a região do seu banco
-NEPTUNE_ENDPOINT = "neptune-vet-clinic.cluster-c8pmgki887qb.us-east-1.neptune.amazonaws.com"
-PORT = "8182"
-REGION = "us-east-1" 
+NEPTUNE_ENDPOINT = os.getenv('NEPTUNE_ENDPOINT')
+PORT = os.getenv('NEPTUNE_PORT', '8182')
+REGION = os.getenv('AWS_REGION', 'us-east-1') 
 
 def get_signed_headers():
     session = boto3.Session()
